@@ -10,6 +10,11 @@ class FinanceManager {
   //inizializzo list
   List<Transaction> _transaction = [];
   
+  //carica i dati
+  FinanceManager(){
+    loadData();
+  }
+
   // -- LOGICA DI SALVATAGGIO --
   void saveData(){
     // trasforma List<Transaction> in List<Map>

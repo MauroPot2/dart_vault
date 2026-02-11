@@ -32,6 +32,13 @@ void main() {
       case '3':
         _handleTransactionInput(service, TransactionType.expense);
         break;
+      case '4':
+        _handleRemoval(service);
+        break;
+      case '5':
+        final saldo = service.calculateBalance();
+        print('\n Saldo Attuale: €${saldo.toStringAsFixed(2)}');
+        break;
       case '0':
         print('Chiusura in corso');
         exit(0);
@@ -64,4 +71,16 @@ void _handleTransactionInput(FinanceManager manager, TransactionType type) {
 
   manager.addTransaction(t);
   print('Operazione completata con successo!');
+}
+
+void _handleRemoval(FinanceManager manager) {
+  stdout.write('Inserisci l\'id della transazione da rimuovere: ');
+  final input = stdin.readLineSync();
+  final id = int.tryParse(input ?? '');
+
+  if (id == null) {
+    print('ID non valido.');
+    return;
+  }
+  manager.removeTransaction(id);
 }
