@@ -15,6 +15,30 @@ class Transaction {
     required this.type,
   });
 
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'title': title,
+      'amount': amount,
+      //date Json stringhe ISO-8601
+      'date': date.toIso8601String(),
+      //enum salvati come stringhe
+      'type': type.name,
+    };
+  }
+
+  factory Transaction.fromJson(Map<String, dynamic> json) {
+    return Transaction(
+      id: json['id'],
+      title: json['title'],
+      amount: json['amount'],
+      date: DateTime.parse(json['date']),
+      type: json['type'] == 'income'
+          ? TransactionType.income
+          : TransactionType.expense,
+    );
+  }
+
   @override
   String toString() {
     return '$type: $title - €${amount.toStringAsFixed(2)} ($date)';
